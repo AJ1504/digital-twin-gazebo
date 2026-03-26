@@ -192,45 +192,8 @@
       <name>nao_robot</name>
     </include>
 
-    <!-- gz-sim7 joint state publisher for NAO (world-level plugin) -->
-    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
-      <joint_name>HeadYaw</joint_name>
-      <joint_name>HeadPitch</joint_name>
-      <joint_name>LShoulderPitch</joint_name>
-      <joint_name>LShoulderRoll</joint_name>
-      <joint_name>LElbowYaw</joint_name>
-      <joint_name>LElbowRoll</joint_name>
-      <joint_name>RShoulderPitch</joint_name>
-      <joint_name>RShoulderRoll</joint_name>
-      <joint_name>RElbowYaw</joint_name>
-      <joint_name>RElbowRoll</joint_name>
-      <joint_name>LHipYawPitch</joint_name>
-      <joint_name>LHipRoll</joint_name>
-      <joint_name>LHipPitch</joint_name>
-      <joint_name>LKneePitch</joint_name>
-      <joint_name>LAnklePitch</joint_name>
-      <joint_name>LAnkleRoll</joint_name>
-      <joint_name>RHipYawPitch</joint_name>
-      <joint_name>RHipRoll</joint_name>
-      <joint_name>RHipPitch</joint_name>
-      <joint_name>RKneePitch</joint_name>
-      <joint_name>RAnklePitch</joint_name>
-      <joint_name>RAnkleRoll</joint_name>
-    </plugin>
-
-    <!-- gz-sim7 joint controller for NAO arm joints -->
-    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
-      <joint_name>LShoulderPitch</joint_name>
-      <joint_name>LShoulderRoll</joint_name>
-      <joint_name>LElbowYaw</joint_name>
-      <joint_name>LElbowRoll</joint_name>
-      <joint_name>RShoulderPitch</joint_name>
-      <joint_name>RShoulderRoll</joint_name>
-      <joint_name>RElbowYaw</joint_name>
-      <joint_name>RElbowRoll</joint_name>
-      <joint_name>HeadYaw</joint_name>
-      <joint_name>HeadPitch</joint_name>
-    </plugin>
+    <!-- Joint control will be handled via ROS 2 bridge in Week 4 -->
+    <!-- The NAO model loads with visuals, physics, and collision meshes -->
 
   </world>
 </sdf>
