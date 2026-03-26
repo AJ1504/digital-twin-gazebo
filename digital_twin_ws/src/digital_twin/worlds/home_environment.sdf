@@ -200,17 +200,16 @@
     <!-- ===== RUG (on floor under table) ===== -->
     <model name="rug"><static>true</static><pose>0 0 0.002 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>2.0 1.5 0.004</size></box></geometry><material><ambient>0.6 0.2 0.15 1</ambient><diffuse>0.6 0.2 0.15 1</diffuse></material></visual></link></model>
 
-    <!-- ===== REALISTIC HUMANOID: NAO Robot from Fuel ===== -->
-    <!-- NAO is 58cm tall, has 25+ joints, DAE meshes with embedded textures -->
-    <!-- Position at (0, -1, 0) so it stands behind the table facing it -->
+    <!-- ===== HUMANOID ROBOT: MJCF Humanoid from Fuel (1.5m tall) ===== -->
+    <!-- DeepMind MuJoCo humanoid converted to SDF - proper scale for pick-and-place -->
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/NAO with Ignition position controller</uri>
-      <pose>0 -1.0 0.35 0 0 0</pose>
-      <name>nao_robot</name>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Humanoid from MJCF</uri>
+      <pose>0 -1.2 0 0 0 0</pose>
+      <name>humanoid_robot</name>
     </include>
 
-    <!-- Joint control will be handled via ROS 2 bridge in Week 4 -->
-    <!-- The NAO model loads with visuals, physics, and collision meshes -->
+    <!-- Joint control via ROS 2 bridge in Week 4 -->
+    <!-- This humanoid has proper joint structure for motion planning -->
 
   </world>
 </sdf>
