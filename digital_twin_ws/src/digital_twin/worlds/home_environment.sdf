@@ -35,57 +35,74 @@
       <attenuation><range>10</range><constant>0.5</constant><linear>0.05</linear><quadratic>0.01</quadratic></attenuation>
     </light>
 
-    <!-- ===== FLOOR: Wood tile pattern ===== -->
+    <!-- ===== FLOOR: Realistic tile pattern with grout lines ===== -->
     <model name="floor">
       <static>true</static>
       <link name="link">
         <collision name="collision">
           <geometry><plane><normal>0 0 1</normal><size>8 8</size></plane></geometry>
         </collision>
-        <visual name="wood_tile_1">
-          <pose>-1.5 -1.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        <!-- Tile base (grout color - light gray) -->
+        <visual name="grout_base">
+          <pose>0 0 0.0005 0 0 0</pose>
+          <geometry><box><size>8 8 0.001</size></box></geometry>
+          <material><ambient>0.75 0.73 0.70 1</ambient><diffuse>0.75 0.73 0.70 1</diffuse></material>
         </visual>
-        <visual name="wood_tile_2">
-          <pose>0.5 -1.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
+        <!-- Row 1 -->
+        <visual name="t1"><pose>-2.4 -2.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t2"><pose>-1.4 -2.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t3"><pose>-0.4 -2.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t4"><pose>0.6 -2.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t5"><pose>1.6 -2.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <!-- Row 2 -->
+        <visual name="t6"><pose>-2.4 -1.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t7"><pose>-1.4 -1.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t8"><pose>-0.4 -1.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t9"><pose>0.6 -1.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t10"><pose>1.6 -1.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <!-- Row 3 -->
+        <visual name="t11"><pose>-2.4 -0.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t12"><pose>-1.4 -0.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t13"><pose>-0.4 -0.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t14"><pose>0.6 -0.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t15"><pose>1.6 -0.4 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <!-- Row 4 -->
+        <visual name="t16"><pose>-2.4 0.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t17"><pose>-1.4 0.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t18"><pose>-0.4 0.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t19"><pose>0.6 0.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t20"><pose>1.6 0.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <!-- Row 5 -->
+        <visual name="t21"><pose>-2.4 1.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t22"><pose>-1.4 1.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t23"><pose>-0.4 1.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+        <visual name="t24"><pose>0.6 1.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.80 0.78 0.74 1</ambient><diffuse>0.80 0.78 0.74 1</diffuse></material></visual>
+        <visual name="t25"><pose>1.6 1.6 0.002 0 0 0</pose><geometry><box><size>0.95 0.95 0.003</size></box></geometry><material><ambient>0.82 0.80 0.76 1</ambient><diffuse>0.82 0.80 0.76 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- ===== CARPET (under table area) ===== -->
+    <model name="carpet">
+      <static>true</static>
+      <pose>0 0 0.004 0 0 0</pose>
+      <link name="link">
+        <!-- Carpet border -->
+        <visual name="border">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry><box><size>2.4 1.8 0.006</size></box></geometry>
+          <material><ambient>0.35 0.15 0.12 1</ambient><diffuse>0.35 0.15 0.12 1</diffuse></material>
         </visual>
-        <visual name="wood_tile_3">
-          <pose>2.5 -1.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        <!-- Carpet center -->
+        <visual name="center">
+          <pose>0 0 0.001 0 0 0</pose>
+          <geometry><box><size>2.2 1.6 0.005</size></box></geometry>
+          <material><ambient>0.55 0.25 0.18 1</ambient><diffuse>0.55 0.25 0.18 1</diffuse></material>
         </visual>
-        <visual name="wood_tile_4">
-          <pose>-1.5 0.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
-        </visual>
-        <visual name="wood_tile_5">
-          <pose>0.5 0.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
-        </visual>
-        <visual name="wood_tile_6">
-          <pose>2.5 0.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
-        </visual>
-        <visual name="wood_tile_7">
-          <pose>-1.5 2.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
-        </visual>
-        <visual name="wood_tile_8">
-          <pose>0.5 2.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
-        </visual>
-        <visual name="wood_tile_9">
-          <pose>2.5 2.5 0.001 0 0 0</pose>
-          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
-          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        <!-- Inner pattern -->
+        <visual name="inner">
+          <pose>0 0 0.002 0 0 0</pose>
+          <geometry><box><size>1.8 1.2 0.004</size></box></geometry>
+          <material><ambient>0.65 0.35 0.25 1</ambient><diffuse>0.65 0.35 0.25 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -188,7 +205,7 @@
     <!-- Position at (0, -1, 0) so it stands behind the table facing it -->
     <include>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/NAO with Ignition position controller</uri>
-      <pose>0 -1.0 0 0 0 0</pose>
+      <pose>0 -1.0 0.35 0 0 0</pose>
       <name>nao_robot</name>
     </include>
 
