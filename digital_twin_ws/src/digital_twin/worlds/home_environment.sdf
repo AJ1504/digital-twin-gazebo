@@ -9,7 +9,7 @@
       <shadows>true</shadows>
     </scene>
 
-    <!-- Bright overhead sun -->
+    <!-- Main sunlight -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
@@ -18,70 +18,172 @@
       <direction>-0.3 -0.3 -0.9</direction>
     </light>
 
-    <!-- Fill light from the side -->
+    <!-- Fill light -->
     <light type="directional" name="fill">
       <cast_shadows>false</cast_shadows>
       <pose>-5 3 5 0 0 0</pose>
-      <diffuse>0.5 0.5 0.55 1</diffuse>
+      <diffuse>0.4 0.4 0.45 1</diffuse>
       <direction>0.5 -0.3 -0.7</direction>
     </light>
 
-    <!-- Ground -->
-    <model name="ground_plane"><static>true</static><link name="link"><collision name="collision"><geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry></collision><visual name="visual"><geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry><material><ambient>0.6 0.6 0.5 1</ambient><diffuse>0.6 0.6 0.5 1</diffuse></material></visual></link></model>
+    <!-- Room light (point light for warm indoor feel) -->
+    <light type="point" name="room_light">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 2.8 0 0 0</pose>
+      <diffuse>1.0 0.95 0.8 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <attenuation><range>10</range><constant>0.5</constant><linear>0.05</linear><quadratic>0.01</quadratic></attenuation>
+    </light>
 
-    <!-- Walls -->
-    <model name="wall_back"><static>true</static><pose>0 -2.5 1.5 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>6 0.1 3</size></box></geometry><material><ambient>0.9 0.88 0.85 1</ambient><diffuse>0.9 0.88 0.85 1</diffuse></material></visual><collision name="c"><geometry><box><size>6 0.1 3</size></box></geometry></collision></link></model>
-    <model name="wall_left"><static>true</static><pose>-3 0 1.5 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>0.1 5 3</size></box></geometry><material><ambient>0.9 0.88 0.85 1</ambient><diffuse>0.9 0.88 0.85 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.1 5 3</size></box></geometry></collision></link></model>
+    <!-- ===== FLOOR: Wood tile pattern ===== -->
+    <model name="floor">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>8 8</size></plane></geometry>
+        </collision>
+        <visual name="wood_tile_1">
+          <pose>-1.5 -1.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_2">
+          <pose>0.5 -1.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_3">
+          <pose>2.5 -1.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_4">
+          <pose>-1.5 0.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_5">
+          <pose>0.5 0.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_6">
+          <pose>2.5 0.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_7">
+          <pose>-1.5 2.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_8">
+          <pose>0.5 2.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.5 0.32 0.13 1</ambient><diffuse>0.5 0.32 0.13 1</diffuse></material>
+        </visual>
+        <visual name="wood_tile_9">
+          <pose>2.5 2.5 0.001 0 0 0</pose>
+          <geometry><box><size>1.9 1.9 0.002</size></box></geometry>
+          <material><ambient>0.55 0.35 0.15 1</ambient><diffuse>0.55 0.35 0.15 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
 
-    <!-- REALISTIC TABLE from Gazebo Fuel -->
+    <!-- ===== WALLS (3 walls + ceiling) ===== -->
+    <!-- Back wall (beige/cream) -->
+    <model name="wall_back"><static>true</static><pose>0 -3.5 1.5 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>8 0.1 3</size></box></geometry><material><ambient>0.92 0.88 0.82 1</ambient><diffuse>0.92 0.88 0.82 1</diffuse></material></visual><collision name="c"><geometry><box><size>8 0.1 3</size></box></geometry></collision></link></model>
+    <!-- Left wall -->
+    <model name="wall_left"><static>true</static><pose>-4 0 1.5 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>0.1 7 3</size></box></geometry><material><ambient>0.9 0.87 0.8 1</ambient><diffuse>0.9 0.87 0.8 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.1 7 3</size></box></geometry></collision></link></model>
+    <!-- Right wall -->
+    <model name="wall_right"><static>true</static><pose>4 0 1.5 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>0.1 7 3</size></box></geometry><material><ambient>0.9 0.87 0.8 1</ambient><diffuse>0.9 0.87 0.8 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.1 7 3</size></box></geometry></collision></link></model>
+    <!-- Ceiling -->
+    <model name="ceiling"><static>true</static><pose>0 0 3.0 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>8 7 0.05</size></box></geometry><material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material></visual></link></model>
+
+    <!-- ===== WALL DECORATIONS (picture frames) ===== -->
+    <model name="frame_1"><static>true</static><pose>-0.5 -3.43 1.8 0 0 0</pose><link name="link"><visual name="frame"><geometry><box><size>0.5 0.02 0.4</size></box></geometry><material><ambient>0.3 0.2 0.1 1</ambient><diffuse>0.3 0.2 0.1 1</diffuse></material></visual><visual name="picture"><pose>0 0.005 0 0 0 0</pose><geometry><box><size>0.42 0.01 0.32</size></box></geometry><material><ambient>0.6 0.7 0.8 1</ambient><diffuse>0.6 0.7 0.8 1</diffuse></material></visual></link></model>
+    <model name="frame_2"><static>true</static><pose>0.8 -3.43 1.9 0 0 0</pose><link name="link"><visual name="frame"><geometry><box><size>0.35 0.02 0.25</size></box></geometry><material><ambient>0.25 0.2 0.15 1</ambient><diffuse>0.25 0.2 0.15 1</diffuse></material></visual><visual name="picture"><pose>0 0.005 0 0 0 0</pose><geometry><box><size>0.28 0.01 0.18</size></box></geometry><material><ambient>0.8 0.6 0.5 1</ambient><diffuse>0.8 0.6 0.5 1</diffuse></material></visual></link></model>
+    <model name="clock"><static>true</static><pose>-2.0 -3.43 2.2 0 0 0</pose><link name="link"><visual name="v"><geometry><cylinder><radius>0.15</radius><length>0.02</length></cylinder></geometry><material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual></link></model>
+
+    <!-- ===== REALISTIC TABLE from Fuel ===== -->
     <include>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
       <pose>0 0 0 0 0 0</pose>
       <name>wooden_table</name>
     </include>
 
-    <!-- REALISTIC COKE CAN from Gazebo Fuel -->
+    <!-- ===== REALISTIC COKE CAN from Fuel ===== -->
     <include>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke Can</uri>
       <pose>0.3 0.15 1.04 0 0 0</pose>
       <name>can</name>
     </include>
 
-    <!-- REALISTIC BOWL from Gazebo Fuel -->
+    <!-- ===== REALISTIC BOWL from Fuel ===== -->
     <include>
       <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Bowl</uri>
       <pose>-0.25 -0.15 1.03 0 0 0</pose>
       <name>bowl</name>
     </include>
 
-    <!-- MUG -->
+    <!-- ===== CHAIR from Fuel ===== -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Chair</uri>
+      <pose>0 -1.5 0 0 0 3.14</pose>
+      <name>chair</name>
+    </include>
+
+    <!-- ===== SOFA from Fuel ===== -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sofa</uri>
+      <pose>-2.5 -2.5 0 0 0 0.3</pose>
+      <name>sofa</name>
+    </include>
+
+    <!-- ===== SHELF from Fuel ===== -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/SquareShelf</uri>
+      <pose>2.5 -3.0 0 0 0 0</pose>
+      <name>shelf</name>
+    </include>
+
+    <!-- ===== MUG ===== -->
     <model name="mug"><static>false</static><link name="body"><pose>0.1 0.1 1.04 0 0 0</pose><visual name="v"><geometry><cylinder><radius>0.04</radius><length>0.09</length></cylinder></geometry><material><ambient>0.1 0.3 0.8 1</ambient><diffuse>0.1 0.3 0.8 1</diffuse><specular>0.4 0.4 0.4 1</specular></material></visual><collision name="c"><geometry><cylinder><radius>0.04</radius><length>0.09</length></cylinder></geometry></collision><inertial><mass>0.3</mass><inertia><ixx>0.0003</ixx><iyy>0.0003</iyy><izz>0.0002</izz></inertia></inertial></link></model>
 
-    <!-- BOOK -->
+    <!-- ===== BOOK ===== -->
     <model name="book"><static>false</static><link name="body"><pose>-0.15 0.05 1.03 0 0 0.3</pose><visual name="v"><geometry><box><size>0.15 0.22 0.03</size></box></geometry><material><ambient>0.6 0.1 0.1 1</ambient><diffuse>0.6 0.1 0.1 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.15 0.22 0.03</size></box></geometry></collision><inertial><mass>0.5</mass><inertia><ixx>0.0005</ixx><iyy>0.0003</iyy><izz>0.0007</izz></inertia></inertial></link></model>
 
-    <!-- PHONE -->
+    <!-- ===== PHONE ===== -->
     <model name="phone"><static>false</static><link name="body"><pose>0.25 -0.1 1.02 0 0 -0.2</pose><visual name="v"><geometry><box><size>0.07 0.15 0.008</size></box></geometry><material><ambient>0.1 0.1 0.12 1</ambient><diffuse>0.1 0.1 0.12 1</diffuse><specular>0.3 0.3 0.3 1</specular></material></visual><collision name="c"><geometry><box><size>0.07 0.15 0.008</size></box></geometry></collision><inertial><mass>0.2</mass><inertia><ixx>0.0001</ixx><iyy>0.00005</iyy><izz>0.0001</izz></inertia></inertial></link></model>
 
-    <!-- PEN -->
+    <!-- ===== PEN ===== -->
     <model name="pen"><static>false</static><link name="body"><pose>0.05 0.25 1.02 1.57 0 0.5</pose><visual name="v"><geometry><cylinder><radius>0.005</radius><length>0.15</length></cylinder></geometry><material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse><specular>0.5 0.5 0.5 1</specular></material></visual><collision name="c"><geometry><cylinder><radius>0.005</radius><length>0.15</length></cylinder></geometry></collision><inertial><mass>0.01</mass><inertia><ixx>0.000001</ixx><iyy>0.000001</iyy><izz>0.0000001</izz></inertia></inertial></link></model>
 
-    <!-- APPLE -->
+    <!-- ===== APPLE ===== -->
     <model name="apple"><static>false</static><link name="body"><pose>-0.3 0.2 1.03 0 0 0</pose><visual name="v"><geometry><sphere><radius>0.04</radius></sphere></geometry><material><ambient>0.8 0.1 0.1 1</ambient><diffuse>0.8 0.1 0.1 1</diffuse><specular>0.3 0.3 0.3 1</specular></material></visual><collision name="c"><geometry><sphere><radius>0.04</radius></sphere></geometry></collision><inertial><mass>0.18</mass><inertia><ixx>0.0001</ixx><iyy>0.0001</iyy><izz>0.0001</izz></inertia></inertial></link></model>
 
-    <!-- SCREWDRIVER -->
+    <!-- ===== SCREWDRIVER ===== -->
     <model name="screwdriver"><static>false</static><link name="body"><pose>0.15 -0.25 1.02 0 1.57 0</pose><visual name="v"><geometry><cylinder><radius>0.01</radius><length>0.2</length></cylinder></geometry><material><ambient>0.9 0.7 0.1 1</ambient><diffuse>0.9 0.7 0.1 1</diffuse><specular>0.4 0.4 0.4 1</specular></material></visual><collision name="c"><geometry><cylinder><radius>0.01</radius><length>0.2</length></cylinder></geometry></collision><inertial><mass>0.15</mass><inertia><ixx>0.0001</ixx><iyy>0.0001</iyy><izz>0.00001</izz></inertia></inertial></link></model>
 
-    <!-- CUP -->
+    <!-- ===== CUP ===== -->
     <model name="cup"><static>false</static><link name="body"><pose>-0.05 -0.2 1.03 0 0 0</pose><visual name="v"><geometry><cylinder><radius>0.035</radius><length>0.08</length></cylinder></geometry><material><ambient>0.2 0.6 0.8 1</ambient><diffuse>0.2 0.6 0.8 1</diffuse><specular>0.3 0.3 0.3 1</specular></material></visual><collision name="c"><geometry><cylinder><radius>0.035</radius><length>0.08</length></cylinder></geometry></collision><inertial><mass>0.2</mass><inertia><ixx>0.0002</ixx><iyy>0.0002</iyy><izz>0.0001</izz></inertia></inertial></link></model>
 
-    <!-- TAPE -->
+    <!-- ===== TAPE ===== -->
     <model name="tape"><static>false</static><link name="body"><pose>0.35 0.0 1.03 0 1.57 0</pose><visual name="v"><geometry><cylinder><radius>0.04</radius><length>0.025</length></cylinder></geometry><material><ambient>0.95 0.95 0.7 1</ambient><diffuse>0.95 0.95 0.7 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.04</radius><length>0.025</length></cylinder></geometry></collision><inertial><mass>0.1</mass><inertia><ixx>0.00005</ixx><iyy>0.00005</iyy><izz>0.00005</izz></inertia></inertial></link></model>
 
-    <!-- BIN -->
-    <model name="bin"><static>true</static><pose>0.8 0 0.3 0 0 0</pose><link name="body"><visual name="bottom"><pose>0 0 0.01 0 0 0</pose><geometry><box><size>0.3 0.3 0.02</size></box></geometry><material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material></visual><visual name="front"><pose>0 -0.15 0.16 0 0 0</pose><geometry><box><size>0.3 0.02 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="back"><pose>0 0.15 0.16 0 0 0</pose><geometry><box><size>0.3 0.02 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="left"><pose>-0.15 0 0.16 0 0 0</pose><geometry><box><size>0.02 0.3 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="right"><pose>0.15 0 0.16 0 0 0</pose><geometry><box><size>0.02 0.3 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><collision name="bc"><pose>0 0 0.01 0 0 0</pose><geometry><box><size>0.3 0.3 0.02</size></box></geometry></collision></link></model>
+    <!-- ===== BIN ===== -->
+    <model name="bin"><static>true</static><pose>1.5 0 0.3 0 0 0</pose><link name="body"><visual name="bottom"><pose>0 0 0.01 0 0 0</pose><geometry><box><size>0.3 0.3 0.02</size></box></geometry><material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material></visual><visual name="front"><pose>0 -0.15 0.16 0 0 0</pose><geometry><box><size>0.3 0.02 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="back"><pose>0 0.15 0.16 0 0 0</pose><geometry><box><size>0.3 0.02 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="left"><pose>-0.15 0 0.16 0 0 0</pose><geometry><box><size>0.02 0.3 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><visual name="right"><pose>0.15 0 0.16 0 0 0</pose><geometry><box><size>0.02 0.3 0.3</size></box></geometry><material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material></visual><collision name="bc"><pose>0 0 0.01 0 0 0</pose><geometry><box><size>0.3 0.3 0.02</size></box></geometry></collision></link></model>
 
-    <!-- HUMANOID ROBOT (custom, working version) -->
+    <!-- ===== PLANT (decorative) ===== -->
+    <model name="plant"><static>true</static><pose>-3.0 2.5 0 0 0 0</pose><link name="link"><visual name="pot"><pose>0 0 0.15 0 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.3</length></cylinder></geometry><material><ambient>0.5 0.3 0.15 1</ambient><diffuse>0.5 0.3 0.15 1</diffuse></material></visual><visual name="leaves"><pose>0 0 0.45 0 0 0</pose><geometry><sphere><radius>0.2</radius></sphere></geometry><material><ambient>0.2 0.6 0.15 1</ambient><diffuse>0.2 0.6 0.15 1</diffuse></material></visual></link></model>
+
+    <!-- ===== LAMP ===== -->
+    <model name="lamp"><static>true</static><pose>2.0 -3.0 0 0 0 0</pose><link name="link"><visual name="base"><pose>0 0 0.02 0 0 0</pose><geometry><cylinder><radius>0.1</radius><length>0.04</length></cylinder></geometry><material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual><visual name="pole"><pose>0 0 0.4 0 0 0</pose><geometry><cylinder><radius>0.015</radius><length>0.76</length></cylinder></geometry><material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material></visual><visual name="shade"><pose>0 0 0.82 0 0 0</pose><geometry><cylinder><radius>0.12</radius><length>0.15</length></cylinder></geometry><material><ambient>0.9 0.85 0.7 1</ambient><diffuse>0.9 0.85 0.7 1</diffuse></material></visual></link></model>
+
+    <!-- ===== RUG (on floor under table) ===== -->
+    <model name="rug"><static>true</static><pose>0 0 0.002 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>2.0 1.5 0.004</size></box></geometry><material><ambient>0.6 0.2 0.15 1</ambient><diffuse>0.6 0.2 0.15 1</diffuse></material></visual></link></model>
+
+    <!-- ===== HUMANOID ROBOT ===== -->
     <model name="humanoid_robot">
       <static>false</static>
       <pose>0 -1.0 0 0 0 0</pose>
