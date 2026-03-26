@@ -183,66 +183,54 @@
     <!-- ===== RUG (on floor under table) ===== -->
     <model name="rug"><static>true</static><pose>0 0 0.002 0 0 0</pose><link name="link"><visual name="v"><geometry><box><size>2.0 1.5 0.004</size></box></geometry><material><ambient>0.6 0.2 0.15 1</ambient><diffuse>0.6 0.2 0.15 1</diffuse></material></visual></link></model>
 
-    <!-- ===== HUMANOID ROBOT ===== -->
-    <model name="humanoid_robot">
-      <static>false</static>
+    <!-- ===== REALISTIC HUMANOID: NAO Robot from Fuel ===== -->
+    <!-- NAO is 58cm tall, has 25+ joints, DAE meshes with embedded textures -->
+    <!-- Position at (0, -1, 0) so it stands behind the table facing it -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/NAO with Ignition position controller</uri>
       <pose>0 -1.0 0 0 0 0</pose>
+      <name>nao_robot</name>
+    </include>
 
-      <link name="torso"><pose>0 0 1.2 0 0 0</pose><inertial><mass>25.0</mass><inertia><ixx>0.5</ixx><iyy>0.4</iyy><izz>0.3</izz></inertia></inertial><visual name="v"><geometry><box><size>0.35 0.25 0.4</size></box></geometry><material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.35 0.25 0.4</size></box></geometry></collision></link>
-      <link name="head"><pose>0 0 1.55 0 0 0</pose><inertial><mass>2.0</mass><inertia><ixx>0.01</ixx><iyy>0.01</iyy><izz>0.01</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.12</radius></sphere></geometry><material><ambient>0.85 0.85 0.85 1</ambient><diffuse>0.85 0.85 0.85 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.12</radius></sphere></geometry></collision></link>
-      <joint name="neck" type="revolute"><parent>torso</parent><child>head</child><pose>0 0 0.2 0 0 0</pose><axis><xyz>0 1 0</xyz><limit><lower>-0.5</lower><upper>0.5</upper><effort>10</effort><velocity>1.0</velocity></limit></axis></joint>
+    <!-- gz-sim7 joint state publisher for NAO (world-level plugin) -->
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <joint_name>HeadYaw</joint_name>
+      <joint_name>HeadPitch</joint_name>
+      <joint_name>LShoulderPitch</joint_name>
+      <joint_name>LShoulderRoll</joint_name>
+      <joint_name>LElbowYaw</joint_name>
+      <joint_name>LElbowRoll</joint_name>
+      <joint_name>RShoulderPitch</joint_name>
+      <joint_name>RShoulderRoll</joint_name>
+      <joint_name>RElbowYaw</joint_name>
+      <joint_name>RElbowRoll</joint_name>
+      <joint_name>LHipYawPitch</joint_name>
+      <joint_name>LHipRoll</joint_name>
+      <joint_name>LHipPitch</joint_name>
+      <joint_name>LKneePitch</joint_name>
+      <joint_name>LAnklePitch</joint_name>
+      <joint_name>LAnkleRoll</joint_name>
+      <joint_name>RHipYawPitch</joint_name>
+      <joint_name>RHipRoll</joint_name>
+      <joint_name>RHipPitch</joint_name>
+      <joint_name>RKneePitch</joint_name>
+      <joint_name>RAnklePitch</joint_name>
+      <joint_name>RAnkleRoll</joint_name>
+    </plugin>
 
-      <link name="left_shoulder"><pose>-0.25 0 1.35 0 0 0</pose><inertial><mass>1.5</mass><inertia><ixx>0.005</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.06</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.06</radius></sphere></geometry></collision></link>
-      <link name="left_upper_arm"><pose>-0.25 0 1.15 0 0 0</pose><inertial><mass>2.0</mass><inertia><ixx>0.02</ixx><iyy>0.02</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.04</radius><length>0.28</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.04</radius><length>0.28</length></cylinder></geometry></collision></link>
-      <link name="left_elbow"><pose>-0.25 0 0.98 0 0 0</pose><inertial><mass>0.5</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.045</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.045</radius></sphere></geometry></collision></link>
-      <link name="left_forearm"><pose>-0.25 0 0.82 0 0 0</pose><inertial><mass>1.5</mass><inertia><ixx>0.015</ixx><iyy>0.015</iyy><izz>0.003</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.035</radius><length>0.25</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.035</radius><length>0.25</length></cylinder></geometry></collision></link>
-      <link name="left_hand"><pose>-0.25 0 0.67 0 0 0</pose><inertial><mass>0.4</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><box><size>0.06 0.02 0.08</size></box></geometry><material><ambient>0.8 0.75 0.7 1</ambient><diffuse>0.8 0.75 0.7 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.06 0.02 0.08</size></box></geometry></collision></link>
-      <joint name="left_shoulder_pitch" type="revolute"><parent>torso</parent><child>left_shoulder</child><pose>-0.08 0 0.15 0 0 0</pose><axis><xyz>0 1 0</xyz><limit><lower>-3.14</lower><upper>3.14</upper><effort>50</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="left_shoulder_to_arm" type="fixed"><parent>left_shoulder</parent><child>left_upper_arm</child></joint>
-      <joint name="left_elbow_pitch" type="revolute"><parent>left_upper_arm</parent><child>left_elbow</child><axis><xyz>0 1 0</xyz><limit><lower>-2.35</lower><upper>2.35</upper><effort>30</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="left_elbow_to_forearm" type="fixed"><parent>left_elbow</parent><child>left_forearm</child></joint>
-      <joint name="left_wrist" type="revolute"><parent>left_forearm</parent><child>left_hand</child><axis><xyz>1 0 0</xyz><limit><lower>-1.57</lower><upper>1.57</upper><effort>10</effort><velocity>3.0</velocity></limit></axis></joint>
-
-      <link name="right_shoulder"><pose>0.25 0 1.35 0 0 0</pose><inertial><mass>1.5</mass><inertia><ixx>0.005</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.06</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.06</radius></sphere></geometry></collision></link>
-      <link name="right_upper_arm"><pose>0.25 0 1.15 0 0 0</pose><inertial><mass>2.0</mass><inertia><ixx>0.02</ixx><iyy>0.02</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.04</radius><length>0.28</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.04</radius><length>0.28</length></cylinder></geometry></collision></link>
-      <link name="right_elbow"><pose>0.25 0 0.98 0 0 0</pose><inertial><mass>0.5</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.045</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.045</radius></sphere></geometry></collision></link>
-      <link name="right_forearm"><pose>0.25 0 0.82 0 0 0</pose><inertial><mass>1.5</mass><inertia><ixx>0.015</ixx><iyy>0.015</iyy><izz>0.003</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.035</radius><length>0.25</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.035</radius><length>0.25</length></cylinder></geometry></collision></link>
-      <link name="right_hand"><pose>0.25 0 0.67 0 0 0</pose><inertial><mass>0.4</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><box><size>0.06 0.02 0.08</size></box></geometry><material><ambient>0.8 0.75 0.7 1</ambient><diffuse>0.8 0.75 0.7 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.06 0.02 0.08</size></box></geometry></collision></link>
-      <joint name="right_shoulder_pitch" type="revolute"><parent>torso</parent><child>right_shoulder</child><pose>0.08 0 0.15 0 0 0</pose><axis><xyz>0 1 0</xyz><limit><lower>-3.14</lower><upper>3.14</upper><effort>50</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="right_shoulder_to_arm" type="fixed"><parent>right_shoulder</parent><child>right_upper_arm</child></joint>
-      <joint name="right_elbow_pitch" type="revolute"><parent>right_upper_arm</parent><child>right_elbow</child><axis><xyz>0 1 0</xyz><limit><lower>-2.35</lower><upper>2.35</upper><effort>30</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="right_elbow_to_forearm" type="fixed"><parent>right_elbow</parent><child>right_forearm</child></joint>
-      <joint name="right_wrist" type="revolute"><parent>right_forearm</parent><child>right_hand</child><axis><xyz>1 0 0</xyz><limit><lower>-1.57</lower><upper>1.57</upper><effort>10</effort><velocity>3.0</velocity></limit></axis></joint>
-
-      <link name="left_hip"><pose>-0.1 0 0.98 0 0 0</pose><inertial><mass>1.0</mass><inertia><ixx>0.003</ixx><iyy>0.003</iyy><izz>0.003</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.06</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.06</radius></sphere></geometry></collision></link>
-      <link name="left_thigh"><pose>-0.1 0 0.75 0 0 0</pose><inertial><mass>4.0</mass><inertia><ixx>0.05</ixx><iyy>0.05</iyy><izz>0.01</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.055</radius><length>0.38</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.055</radius><length>0.38</length></cylinder></geometry></collision></link>
-      <link name="left_knee"><pose>-0.1 0 0.52 0 0 0</pose><inertial><mass>0.5</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.05</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.05</radius></sphere></geometry></collision></link>
-      <link name="left_shin"><pose>-0.1 0 0.3 0 0 0</pose><inertial><mass>3.0</mass><inertia><ixx>0.04</ixx><iyy>0.04</iyy><izz>0.008</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.045</radius><length>0.36</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.045</radius><length>0.36</length></cylinder></geometry></collision></link>
-      <link name="left_foot"><pose>-0.1 0.02 0.08 0 0 0</pose><inertial><mass>1.0</mass><inertia><ixx>0.003</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><box><size>0.1 0.22 0.06</size></box></geometry><material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.1 0.22 0.06</size></box></geometry></collision></link>
-      <joint name="left_hip_pitch" type="revolute"><parent>torso</parent><child>left_hip</child><pose>-0.05 0 -0.02 0 0 0</pose><axis><xyz>0 1 0</xyz><limit><lower>-1.57</lower><upper>1.57</upper><effort>100</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="left_hip_to_thigh" type="fixed"><parent>left_hip</parent><child>left_thigh</child></joint>
-      <joint name="left_knee_pitch" type="revolute"><parent>left_thigh</parent><child>left_knee</child><axis><xyz>0 1 0</xyz><limit><lower>-2.35</lower><upper>0.05</upper><effort>100</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="left_knee_to_shin" type="fixed"><parent>left_knee</parent><child>left_shin</child></joint>
-      <joint name="left_ankle_pitch" type="revolute"><parent>left_shin</parent><child>left_foot</child><axis><xyz>0 1 0</xyz><limit><lower>-0.5</lower><upper>0.5</upper><effort>50</effort><velocity>2.0</velocity></limit></axis></joint>
-
-      <link name="right_hip"><pose>0.1 0 0.98 0 0 0</pose><inertial><mass>1.0</mass><inertia><ixx>0.003</ixx><iyy>0.003</iyy><izz>0.003</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.06</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.06</radius></sphere></geometry></collision></link>
-      <link name="right_thigh"><pose>0.1 0 0.75 0 0 0</pose><inertial><mass>4.0</mass><inertia><ixx>0.05</ixx><iyy>0.05</iyy><izz>0.01</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.055</radius><length>0.38</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.055</radius><length>0.38</length></cylinder></geometry></collision></link>
-      <link name="right_knee"><pose>0.1 0 0.52 0 0 0</pose><inertial><mass>0.5</mass><inertia><ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz></inertia></inertial><visual name="v"><geometry><sphere><radius>0.05</radius></sphere></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual><collision name="c"><geometry><sphere><radius>0.05</radius></sphere></geometry></collision></link>
-      <link name="right_shin"><pose>0.1 0 0.3 0 0 0</pose><inertial><mass>3.0</mass><inertia><ixx>0.04</ixx><iyy>0.04</iyy><izz>0.008</izz></inertia></inertial><visual name="v"><geometry><cylinder><radius>0.045</radius><length>0.36</length></cylinder></geometry><material><ambient>0.75 0.75 0.75 1</ambient><diffuse>0.75 0.75 0.75 1</diffuse></material></visual><collision name="c"><geometry><cylinder><radius>0.045</radius><length>0.36</length></cylinder></geometry></collision></link>
-      <link name="right_foot"><pose>0.1 0.02 0.08 0 0 0</pose><inertial><mass>1.0</mass><inertia><ixx>0.003</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia></inertial><visual name="v"><geometry><box><size>0.1 0.22 0.06</size></box></geometry><material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material></visual><collision name="c"><geometry><box><size>0.1 0.22 0.06</size></box></geometry></collision></link>
-      <joint name="right_hip_pitch" type="revolute"><parent>torso</parent><child>right_hip</child><pose>0.05 0 -0.02 0 0 0</pose><axis><xyz>0 1 0</xyz><limit><lower>-1.57</lower><upper>1.57</upper><effort>100</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="right_hip_to_thigh" type="fixed"><parent>right_hip</parent><child>right_thigh</child></joint>
-      <joint name="right_knee_pitch" type="revolute"><parent>right_thigh</parent><child>right_knee</child><axis><xyz>0 1 0</xyz><limit><lower>-2.35</lower><upper>0.05</upper><effort>100</effort><velocity>2.0</velocity></limit></axis></joint>
-      <joint name="right_knee_to_shin" type="fixed"><parent>right_knee</parent><child>right_shin</child></joint>
-      <joint name="right_ankle_pitch" type="revolute"><parent>right_shin</parent><child>right_foot</child><axis><xyz>0 1 0</xyz><limit><lower>-0.5</lower><upper>0.5</upper><effort>50</effort><velocity>2.0</velocity></limit></axis></joint>
-
-      <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
-        <joint_name>neck</joint_name><joint_name>left_shoulder_pitch</joint_name><joint_name>left_elbow_pitch</joint_name><joint_name>left_wrist</joint_name><joint_name>right_shoulder_pitch</joint_name><joint_name>right_elbow_pitch</joint_name><joint_name>right_wrist</joint_name><joint_name>left_hip_pitch</joint_name><joint_name>left_knee_pitch</joint_name><joint_name>left_ankle_pitch</joint_name><joint_name>right_hip_pitch</joint_name><joint_name>right_knee_pitch</joint_name><joint_name>right_ankle_pitch</joint_name>
-      </plugin>
-      <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
-        <joint_name>left_elbow_pitch</joint_name><joint_name>right_elbow_pitch</joint_name><joint_name>left_shoulder_pitch</joint_name><joint_name>right_shoulder_pitch</joint_name>
-      </plugin>
-    </model>
+    <!-- gz-sim7 joint controller for NAO arm joints -->
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+      <joint_name>LShoulderPitch</joint_name>
+      <joint_name>LShoulderRoll</joint_name>
+      <joint_name>LElbowYaw</joint_name>
+      <joint_name>LElbowRoll</joint_name>
+      <joint_name>RShoulderPitch</joint_name>
+      <joint_name>RShoulderRoll</joint_name>
+      <joint_name>RElbowYaw</joint_name>
+      <joint_name>RElbowRoll</joint_name>
+      <joint_name>HeadYaw</joint_name>
+      <joint_name>HeadPitch</joint_name>
+    </plugin>
 
   </world>
 </sdf>
