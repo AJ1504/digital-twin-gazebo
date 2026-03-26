@@ -1,27 +1,23 @@
 """
-Week 5: ROS 2 Object Detection Node
-Subscribes to camera, runs YOLOv8 inference, publishes detections.
+Week 5: ROS 2 Object Detection Node (Updated for MJCF Humanoid)
+Subscribes to head camera, runs YOLOv8 inference, publishes detections.
 """
 
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
-from geometry_msgs.msg import Point
 import json
 import os
 
-# Try importing dependencies (install if missing)
 try:
     from cv_bridge import CvBridge
     import cv2
-    import numpy as np
     from ultralytics import YOLO
 except ImportError as e:
     print(f"Missing dependency: {e}")
     print("Install with: pip install opencv-python-headless ultralytics")
     raise
-
 
 # Object classes (must match training)
 CLASSES = [
@@ -38,7 +34,7 @@ class ObjectDetector(Node):
 
         # Load model
         model_path = os.path.expanduser(
-            '~/digital-twin/models_trained/household_objects/weights/best.pt'
+            '~/digital-twin-gazebo/models_trained/household_objects/weights/best.pt'
         )
         if not os.path.exists(model_path):
             self.get_logger().warn(
@@ -49,7 +45,6 @@ class ObjectDetector(Node):
         self.model = YOLO(model_path)
         self.bridge = CvBridge()
 
-        # Detection parameters
         self.conf_threshold = 0.5
         self.iou_threshold = 0.45
 
@@ -61,17 +56,16 @@ class ObjectDetector(Node):
             Image, '/detections/image', 10
         )
 
-        # Subscriber
+        # Subscribe to head camera (egocentric view)
         self.create_subscription(
-            Image, '/camera/image',
+            Image, '/camera/head/image',
             self.image_callback, 10
         )
 
-        # Stats
         self.frame_count = 0
         self.total_detections = 0
 
-        self.get_logger().info('Object Detector ready')
+        self.get_logger().info('Object Detector ready (using head camera)')
 
     def image_callback(self, msg):
         """Process camera frame and detect objects."""

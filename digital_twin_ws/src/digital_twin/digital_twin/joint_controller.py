@@ -1,50 +1,48 @@
 """
-Week 4: Robot Joint Control Script
-Controls humanoid robot joints via ROS 2 topics.
-Provides simple position commands for arm movements.
+Week 3-4: Joint Controller for MJCF Humanoid
+Controls robot joints via ROS 2 topics.
 """
 
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64
-from sensor_msgs.msg import JointState
 import math
 import time
 
 
 class JointController(Node):
-    """Control robot joints via ROS 2."""
+    """Control MJCF humanoid joints via ROS 2."""
 
     def __init__(self):
         super().__init__('joint_controller')
 
-        # Joint publishers (for Gazebo joint controller plugin)
-        self.joint_pubs = {}
-        joints = [
-            'left_shoulder_pitch', 'left_elbow_pitch', 'left_wrist',
-            'right_shoulder_pitch', 'right_elbow_pitch', 'right_wrist',
-            'neck',
+        # MJCF humanoid joint names (DeepMind MuJoCo model)
+        self.arm_joints = [
+            'left_shoulder4', 'left_shoulder3', 'left_shoulder2',
+            'left_elbow',
+            'right_shoulder4', 'right_shoulder3', 'right_shoulder2',
+            'right_elbow',
         ]
-        for joint in joints:
+
+        self.leg_joints = [
+            'left_hip_x', 'left_hip_y', 'left_hip_z',
+            'left_knee',
+            'left_ankle_x', 'left_ankle_y',
+            'right_hip_x', 'right_hip_y', 'right_hip_z',
+            'right_knee',
+            'right_ankle_x', 'right_ankle_y',
+        ]
+
+        self.torso_joints = ['abdomen_x', 'abdomen_y', 'abdomen_z']
+
+        # Publishers for each joint
+        self.joint_pubs = {}
+        all_joints = self.arm_joints + self.leg_joints + self.torso_joints
+        for joint in all_joints:
             topic = f'/model/humanoid_robot/joint/{joint}/cmd_pos'
             self.joint_pubs[joint] = self.create_publisher(Float64, topic, 10)
 
-        # Subscribe to joint states
-        self.joint_states_sub = self.create_subscription(
-            JointState,
-            '/joint_states',
-            self.joint_states_callback,
-            10
-        )
-        self.current_joint_states = {}
-
-        self.get_logger().info('Joint Controller ready')
-
-    def joint_states_callback(self, msg):
-        """Store current joint states."""
-        for i, name in enumerate(msg.name):
-            if i < len(msg.position):
-                self.current_joint_states[name] = msg.position[i]
+        self.get_logger().info(f'Joint Controller ready ({len(all_joints)} joints)')
 
     def move_joint(self, joint_name: str, angle_rad: float):
         """Command a joint to a target angle (radians)."""
@@ -56,26 +54,26 @@ class JointController(Node):
         else:
             self.get_logger().warn(f'Unknown joint: {joint_name}')
 
-    def wave(self):
-        """Demo: wave the right arm."""
-        self.move_joint('right_shoulder_pitch', -1.5)
-        time.sleep(0.5)
-        for _ in range(3):
-            self.move_joint('right_elbow_pitch', -0.8)
-            time.sleep(0.4)
-            self.move_joint('right_elbow_pitch', 0.0)
-            time.sleep(0.4)
-        self.move_joint('right_shoulder_pitch', 0.0)
-
     def arms_up(self):
-        """Demo: raise both arms."""
-        self.move_joint('left_shoulder_pitch', -2.5)
-        self.move_joint('right_shoulder_pitch', -2.5)
+        """Raise both arms."""
+        self.move_joint('left_shoulder4', -1.5)
+        self.move_joint('right_shoulder4', -1.5)
 
     def arms_down(self):
-        """Demo: lower both arms."""
-        self.move_joint('left_shoulder_pitch', 0.0)
-        self.move_joint('right_shoulder_pitch', 0.0)
+        """Lower both arms."""
+        self.move_joint('left_shoulder4', 0.0)
+        self.move_joint('right_shoulder4', 0.0)
+
+    def wave(self):
+        """Wave right arm."""
+        self.move_joint('right_shoulder4', -1.5)
+        time.sleep(0.5)
+        for _ in range(3):
+            self.move_joint('right_elbow', -0.8)
+            time.sleep(0.4)
+            self.move_joint('right_elbow', 0.0)
+            time.sleep(0.4)
+        self.move_joint('right_shoulder4', 0.0)
 
 
 def main(args=None):
