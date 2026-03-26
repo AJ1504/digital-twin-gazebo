@@ -1,0 +1,394 @@
+<?xml version="1.0" ?>
+<!-- =============================================================================
+  Week 2: Home Environment World
+  Realistic scene with table, household objects, bin, and 3-light setup
+  Gazebo Sim (gz-sim7) SDF format
+============================================================================= -->
+<sdf version="1.8">
+  <world name="home_environment">
+
+    <!-- ===== PHYSICS ===== -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- ===== LIGHTING: 3-Point Setup ===== -->
+    <!-- Key Light (main) -->
+    <light type="directional" name="key_light">
+      <pose>3 -2 5 0 0 0</pose>
+      <diffuse>1.0 0.95 0.9 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <attenuation>
+        <range>100</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+      <direction>-0.5 0.3 -0.8</direction>
+    </light>
+
+    <!-- Fill Light (softer, opposite side) -->
+    <light type="directional" name="fill_light">
+      <pose>-3 2 4 0 0 0</pose>
+      <diffuse>0.4 0.45 0.5 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <cast_shadows>false</cast_shadows>
+      <direction>0.5 -0.3 -0.7</direction>
+    </light>
+
+    <!-- Back Light (rim/hair light) -->
+    <light type="directional" name="back_light">
+      <pose>0 -4 3 0 0 0</pose>
+      <diffuse>0.6 0.6 0.65 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <cast_shadows>false</cast_shadows>
+      <direction>0 0.7 -0.5</direction>
+    </light>
+
+    <!-- Ambient (very dim base) -->
+    <scene>
+      <ambient>0.15 0.15 0.18 1</ambient>
+      <background>0.8 0.85 0.9 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <!-- ===== GROUND / FLOOR ===== -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/floors/Carpet</uri>
+    </include>
+
+    <!-- ===== ROOM WALLS ===== -->
+    <!-- Back wall -->
+    <model name="wall_back">
+      <static>true</static>
+      <pose>0 -2.5 1.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6 0.1 3</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.85 1</ambient>
+            <diffuse>0.9 0.88 0.85 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>6 0.1 3</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Left wall -->
+    <model name="wall_left">
+      <static>true</static>
+      <pose>-3 0 1.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.1 5 3</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.85 1</ambient>
+            <diffuse>0.9 0.88 0.85 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.1 5 3</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- ===== TABLE ===== -->
+    <model name="wooden_table">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <!-- Table top -->
+      <link name="table_top">
+        <pose>0 0 0.75 0 0 0</pose>
+        <visual name="top_visual">
+          <geometry><box><size>1.2 0.8 0.04</size></box></geometry>
+          <material>
+            <!-- PBR wood material -->
+            <pbr>
+              <metal>
+                <albedo_map>textures/wood_diffuse.png</albedo_map>
+                <normal_map>textures/wood_normal.png</normal_map>
+                <roughness>0.7</roughness>
+                <metalness>0.0</metalness>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <collision name="top_collision">
+          <geometry><box><size>1.2 0.8 0.04</size></box></geometry>
+        </collision>
+      </link>
+      <!-- 4 Legs -->
+      <link name="leg_front_left">
+        <pose>-0.55 -0.35 0.375 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+          <material><ambient>0.45 0.25 0.1 1</ambient></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+        </collision>
+      </link>
+      <link name="leg_front_right">
+        <pose>0.55 -0.35 0.375 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+          <material><ambient>0.45 0.25 0.1 1</ambient></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+        </collision>
+      </link>
+      <link name="leg_back_left">
+        <pose>-0.55 0.35 0.375 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+          <material><ambient>0.45 0.25 0.1 1</ambient></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+        </collision>
+      </link>
+      <link name="leg_back_right">
+        <pose>0.55 0.35 0.375 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+          <material><ambient>0.45 0.25 0.1 1</ambient></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.025</radius><length>0.75</length></cylinder></geometry>
+        </collision>
+      </link>
+      <!-- Joints to link legs to top -->
+      <joint name="jl1" type="fixed"><parent>table_top</parent><child>leg_front_left</child></joint>
+      <joint name="jl2" type="fixed"><parent>table_top</parent><child>leg_front_right</child></joint>
+      <joint name="jl3" type="fixed"><parent>table_top</parent><child>leg_back_left</child></joint>
+      <joint name="jl4" type="fixed"><parent>table_top</parent><child>leg_back_right</child></joint>
+    </model>
+
+    <!-- ===== 10 HOUSEHOLD OBJECTS ===== -->
+    <!-- 1. Mug -->
+    <model name="mug">
+      <link name="body">
+        <pose>0.1 0.1 0.82 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.04</radius><length>0.09</length></cylinder></geometry>
+          <material><ambient>0.9 0.2 0.2 1</ambient><diffuse>0.9 0.2 0.2 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.04</radius><length>0.09</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.3</mass>
+          <inertia><ixx>0.0003</ixx><iyy>0.0003</iyy><izz>0.0002</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 2. Book -->
+    <model name="book">
+      <link name="body">
+        <pose>-0.15 0.05 0.79 0 0 0.3</pose>
+        <visual name="visual">
+          <geometry><box><size>0.15 0.22 0.03</size></box></geometry>
+          <material><ambient>0.1 0.1 0.7 1</ambient><diffuse>0.1 0.1 0.7 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.15 0.22 0.03</size></box></geometry>
+        </collision>
+        <inertial>
+          <mass>0.5</mass>
+          <inertia><ixx>0.0005</ixx><iyy>0.0003</iyy><izz>0.0007</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 3. Phone -->
+    <model name="phone">
+      <link name="body">
+        <pose>0.25 -0.1 0.785 0 0 -0.2</pose>
+        <visual name="visual">
+          <geometry><box><size>0.07 0.15 0.008</size></box></geometry>
+          <material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.07 0.15 0.008</size></box></geometry>
+        </collision>
+        <inertial>
+          <mass>0.2</mass>
+          <inertia><ixx>0.0001</ixx><iyy>0.00005</iyy><izz>0.0001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 4. Can (soda) -->
+    <model name="can">
+      <link name="body">
+        <pose>0.3 0.15 0.815 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.033</radius><length>0.12</length></cylinder></geometry>
+          <material><ambient>0.8 0.1 0.1 1</ambient><diffuse>0.8 0.1 0.1 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.033</radius><length>0.12</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.35</mass>
+          <inertia><ixx>0.0002</ixx><iyy>0.0002</iyy><izz>0.0001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 5. Bowl -->
+    <model name="bowl">
+      <link name="body">
+        <pose>-0.25 -0.15 0.81 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.07</radius><length>0.05</length></cylinder></geometry>
+          <material><ambient>0.9 0.9 0.95 1</ambient><diffuse>0.9 0.9 0.95 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.07</radius><length>0.05</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.25</mass>
+          <inertia><ixx>0.0003</ixx><iyy>0.0003</iyy><izz>0.0002</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 6. Pen -->
+    <model name="pen">
+      <link name="body">
+        <pose>0.05 0.25 0.782 1.57 0 0.5</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.005</radius><length>0.15</length></cylinder></geometry>
+          <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.005</radius><length>0.15</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.01</mass>
+          <inertia><ixx>0.000001</ixx><iyy>0.000001</iyy><izz>0.0000001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 7. Apple (sphere) -->
+    <model name="apple">
+      <link name="body">
+        <pose>-0.3 0.2 0.82 0 0 0</pose>
+        <visual name="visual">
+          <geometry><sphere><radius>0.04</radius></sphere></geometry>
+          <material><ambient>0.8 0.1 0.1 1</ambient><diffuse>0.8 0.1 0.1 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.04</radius></sphere></geometry>
+        </collision>
+        <inertial>
+          <mass>0.18</mass>
+          <inertia><ixx>0.0001</ixx><iyy>0.0001</iyy><izz>0.0001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 8. Screwdriver -->
+    <model name="screwdriver">
+      <link name="body">
+        <pose>0.15 -0.25 0.785 0 1.57 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.01</radius><length>0.2</length></cylinder></geometry>
+          <material><ambient>0.9 0.7 0.1 1</ambient><diffuse>0.9 0.7 0.1 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.01</radius><length>0.2</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.15</mass>
+          <inertia><ixx>0.0001</ixx><iyy>0.0001</iyy><izz>0.00001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 9. Cup (different from mug) -->
+    <model name="cup">
+      <link name="body">
+        <pose>-0.05 -0.2 0.815 0 0 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.035</radius><length>0.08</length></cylinder></geometry>
+          <material><ambient>0.2 0.6 0.8 1</ambient><diffuse>0.2 0.6 0.8 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.035</radius><length>0.08</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.2</mass>
+          <inertia><ixx>0.0002</ixx><iyy>0.0002</iyy><izz>0.0001</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- 10. Tape roll -->
+    <model name="tape">
+      <link name="body">
+        <pose>0.35 0.0 0.80 0 1.57 0</pose>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.04</radius><length>0.025</length></cylinder></geometry>
+          <material><ambient>0.95 0.95 0.7 1</ambient><diffuse>0.95 0.95 0.7 1</diffuse></material>
+        </visual>
+        <collision name="collision">
+          <geometry><cylinder><radius>0.04</radius><length>0.025</length></cylinder></geometry>
+        </collision>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia><ixx>0.00005</ixx><iyy>0.00005</iyy><izz>0.00005</izz></inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- ===== BIN / BASKET ===== -->
+    <model name="bin">
+      <static>true</static>
+      <pose>0.8 0 0.3 0 0 0</pose>
+      <link name="body">
+        <!-- Bottom -->
+        <visual name="bottom">
+          <pose>0 0 0.01 0 0 0</pose>
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material><ambient>0.4 0.4 0.4 1</ambient></material>
+        </visual>
+        <!-- 4 sides -->
+        <visual name="front">
+          <pose>0 -0.15 0.16 0 0 0</pose>
+          <geometry><box><size>0.3 0.02 0.3</size></box></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient></material>
+        </visual>
+        <visual name="back">
+          <pose>0 0.15 0.16 0 0 0</pose>
+          <geometry><box><size>0.3 0.02 0.3</size></box></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient></material>
+        </visual>
+        <visual name="left">
+          <pose>-0.15 0 0.16 0 0 0</pose>
+          <geometry><box><size>0.02 0.3 0.3</size></box></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient></material>
+        </visual>
+        <visual name="right">
+          <pose>0.15 0 0.16 0 0 0</pose>
+          <geometry><box><size>0.02 0.3 0.3</size></box></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient></material>
+        </visual>
+        <collision name="bottom_col">
+          <pose>0 0 0.01 0 0 0</pose>
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>
